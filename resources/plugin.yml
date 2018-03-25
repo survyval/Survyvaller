@@ -1,0 +1,30 @@
+name: Survyvaller
+author: 7kasper
+version: 0.1
+main: survyvaller.Survyvaller
+commands:
+  admin:
+    description: Toggles adminmode.
+    usage: /<command>
+    permission: survyaller.admin
+    permission-message: You're no admin!
+  tell:
+    description: Private message other player.
+    usage: /<command> <player> <msg...>
+    permission: survyvaller.default
+    permission-message: You can't do that!
+    aliases: [msg, t]
+  reply:
+    description: Reply to a private message.
+    usage: /<command> <msg...>
+    permission: survyvaller.default
+    permission-message: You can't do that!
+    aliases: [respond, r]
+    
+permissions:
+  survyvaller.default:
+    description: Gives access to survyvaller's default commands & things.
+    default: true
+  survyvaller.admin:
+    description: Gives access to survyvaller's admin commands & things.
+    default: op
