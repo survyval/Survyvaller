@@ -10,6 +10,8 @@ import survyvaller.admin.cmds.AdminCmd;
 import survyvaller.entities.EntityDisabler;
 import survyvaller.util.cmds.CmdBlocker;
 import survyvaller.util.cmds.PrivateChat;
+import survyvaller.util.item.compass.CompassListener;
+import survyvaller.util.sign.SignListener;
 
 public class Survyvaller extends JavaPlugin {
 
@@ -36,6 +38,8 @@ public class Survyvaller extends JavaPlugin {
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(new EntityDisabler(), this);
 		pm.registerEvents(new CmdBlocker(), this);
+		pm.registerEvents(new SignListener(), this);
+		pm.registerEvents(new CompassListener(), this);
 		getCommand("tell").setExecutor(new PrivateChat());
 		getCommand("reply").setExecutor(new PrivateChat());
 		getCommand("admin").setExecutor(new AdminCmd());

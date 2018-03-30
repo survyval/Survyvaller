@@ -4,6 +4,8 @@ build/
 target/
 gen/
 dllibs/
+dllibsc/
+dllibss/
 
 .externalToolBuilders/
  # Eclipse Files #
