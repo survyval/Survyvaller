@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
+import net.md_5.bungee.api.ChatColor;
 import survyvaller.Survyvaller;
 
 public class ResourceEnabler implements Listener {
@@ -21,6 +22,7 @@ public class ResourceEnabler implements Listener {
 	@EventHandler
 	public void onLogin(PlayerLoginEvent event) {
 		Bukkit.getScheduler().runTaskLater(Survyvaller.getInstance(), () -> {
+			event.getPlayer().sendMessage(ChatColor.YELLOW + "Hey, I'm applying the server resources, don't panic if your game freezes for a while :S");
 			event.getPlayer().setResourcePack(packId, packHash);
 		},20l);
 	}

@@ -18,19 +18,19 @@ public class RankCmd implements CommandExecutor {
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
 				Rank senderRank = RankUtils.getRank(player.getUniqueId());
-				if (senderRank.getLevel() > -1) {
-					switch (args.length) {
-						case 1: {
-							Player target = PlayerUtils.getBestMatchingPlayer(args[0]);
-							if (target != null) {
-								Rank targetRank = RankUtils.getRank(target.getUniqueId());
-								sender.sendMessage(target.getDisplayName() + ChatColor.WHITE + " has the rank: " + targetRank.getPrefix() + targetRank.toString());
-							} else {
-								sender.sendMessage(ChatColor.RED + "Player " + args[0] + " could not be found!");
-							}
-							break;
+				switch (args.length) {
+					case 1: {
+						Player target = PlayerUtils.getBestMatchingPlayer(args[0]);
+						if (target != null) {
+							Rank targetRank = RankUtils.getRank(target.getUniqueId());
+							sender.sendMessage(target.getDisplayName() + ChatColor.WHITE + " has the rank: " + targetRank.getPrefix() + targetRank.toString());
+						} else {
+							sender.sendMessage(ChatColor.RED + "Player " + args[0] + " could not be found!");
 						}
-						case 2: {
+						return true;
+					}
+					case 2: {
+						if (senderRank.getLevel() > 4) {
 							Player target = PlayerUtils.getBestMatchingPlayer(args[0]);
 							if (target != null) {
 								Rank targetRank = Rank.fromString(args[1].toUpperCase());
@@ -43,22 +43,25 @@ public class RankCmd implements CommandExecutor {
 							} else {
 								sender.sendMessage(ChatColor.RED + "Player " + args[0] + " could not be found!");
 							}
-							break;
+						} else {
+							sender.sendMessage(ChatColor.RED + "Only moderation ranks can manage ranks!");
 						}
-						default: {
-							sender.sendMessage(ChatColor.YELLOW + "Usage: /rank PLAYER - Displays Rank of PLAYER.");
+						return true;
+					}
+					default: {
+						sender.sendMessage(ChatColor.YELLOW + "Usage: /rank PLAYER - Displays Rank of PLAYER.");
+						if (senderRank.getLevel() > 4) {
 							sender.sendMessage(ChatColor.YELLOW + "Usage: /rank PLAYER NEWRANK - sets Rank of PLAYER.");
 						}
+						return true;
 					}
-				} else {
-					sender.sendMessage(ChatColor.RED + "Only moderation ranks can manage ranks!");
 				}
 			} else {
 				sender.sendMessage(ChatColor.RED + "Only players can do rank shizzle because am lazyy!");
+				return true;
 			}
-			return true;
 		}
-		return true;
+		return false;
 	}
 
 }
