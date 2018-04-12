@@ -9,7 +9,7 @@ import survyvaller.Survyvaller;
 
 public class ResourceEnabler implements Listener {
 	
-	public static final String packId = "https://magbot.nl/mc/SurvyvalPack.zip";
+	public static final String packId = "https://github.com/survyval/SurvyvalPack/releases/download/0.0.2/SurvyvalPack.zip";
 	public static final byte[] packHash = new byte[] {
 			(byte) 0x57, (byte) 0x18, (byte) 0x3A, (byte) 0xD6, (byte) 0x79, 
 			(byte) 0x40, (byte) 0x42, (byte) 0x6D, (byte) 0x3D, (byte) 0x48, 
@@ -22,7 +22,7 @@ public class ResourceEnabler implements Listener {
 	public void onLogin(PlayerLoginEvent event) {
 		Bukkit.getScheduler().runTaskLater(Survyvaller.getInstance(), () -> {
 			event.getPlayer().setResourcePack(packId, packHash);
-		},5l);
+		},20l);
 	}
 	
 }

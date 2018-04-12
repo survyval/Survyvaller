@@ -14,11 +14,11 @@ public class RankCmd implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName().toUpperCase().equals("ADMIN")) {
+		if (cmd.getName().toUpperCase().equals("RANK")) {
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
 				Rank senderRank = RankUtils.getRank(player.getUniqueId());
-				if (senderRank.getLevel() > 5) {
+				if (senderRank.getLevel() > -1) {
 					switch (args.length) {
 						case 1: {
 							Player target = PlayerUtils.getBestMatchingPlayer(args[0]);
@@ -28,6 +28,7 @@ public class RankCmd implements CommandExecutor {
 							} else {
 								sender.sendMessage(ChatColor.RED + "Player " + args[0] + " could not be found!");
 							}
+							break;
 						}
 						case 2: {
 							Player target = PlayerUtils.getBestMatchingPlayer(args[0]);
@@ -37,7 +38,7 @@ public class RankCmd implements CommandExecutor {
 									RankUtils.setRank(target.getUniqueId(), targetRank);
 									sender.sendMessage(target.getDisplayName() + ChatColor.WHITE + " is now " + targetRank.getPrefix() + targetRank.toString() + ChatColor.WHITE + "!");
 								} else {
-									sender.sendMessage(ChatColor.RED + "Can't promoto above or to your own rank you dufus!");
+									sender.sendMessage(ChatColor.RED + "Can't promote above or to your own rank you dufus!");
 								}
 							} else {
 								sender.sendMessage(ChatColor.RED + "Player " + args[0] + " could not be found!");
@@ -57,7 +58,7 @@ public class RankCmd implements CommandExecutor {
 			}
 			return true;
 		}
-		return false;
+		return true;
 	}
 
 }

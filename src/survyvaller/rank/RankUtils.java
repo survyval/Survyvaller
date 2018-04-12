@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import net.md_5.bungee.api.ChatColor;
 import survyvaller.Survyvaller;
 
 public class RankUtils {
@@ -20,7 +21,8 @@ public class RankUtils {
 	 * @return
 	 */
 	public static Rank getRank(UUID uuid) {
-		return Rank.fromString(Survyvaller.getInstance().getConfig().getConfigurationSection("players.ranks").get(uuid.toString()).toString());
+		System.out.println(uuid.toString());
+		return Rank.fromString(Survyvaller.getInstance().getConfig().getConfigurationSection("players.ranks").get(uuid.toString()));
 	}
 	
 	/**
@@ -33,7 +35,7 @@ public class RankUtils {
 		Survyvaller.getInstance().saveConfig();
 		Player online = Bukkit.getPlayer(uuid);
 		if (online != null) {
-			online.setDisplayName(rank.getPrefix() + online.getName());
+			online.setDisplayName(rank.getPrefix() + online.getName() + ChatColor.RESET);
 		}
 	}
 	

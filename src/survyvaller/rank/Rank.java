@@ -57,9 +57,9 @@ public enum Rank {
 	 * @param rank
 	 * @return
 	 */
-	public static Rank fromString(String rank) {
+	public static Rank fromString(Object rank) {
 		try {
-			return valueOf(rank);
+			return valueOf(rank.toString());
 		} catch(Exception e) {
 			return Rank.DEFAULT;
 		}

@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
+import net.md_5.bungee.api.ChatColor;
 import utils.RandUtils;
 import utils.ServerUtils;
 
@@ -24,7 +25,7 @@ public class WarmWelcome implements Listener {
 	
 	@EventHandler
 	public void onLogin(PlayerLoginEvent event) {
-		event.getPlayer().setDisplayName(RankUtils.getRank(event.getPlayer().getUniqueId()).getPrefix() + event.getPlayer().getName());
+		event.getPlayer().setDisplayName(RankUtils.getRank(event.getPlayer().getUniqueId()).getPrefix() + event.getPlayer().getName() + ChatColor.RESET);
 	}
 	
 }

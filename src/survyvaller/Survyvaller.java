@@ -26,6 +26,7 @@ public class Survyvaller extends JavaPlugin {
 	@Override 
 	public void onLoad() {
 		saveDefaultConfig();
+		reloadConfig();
 		INSTANCE = this;
 		//Do setup of classes.
 		try {
