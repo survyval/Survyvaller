@@ -7,21 +7,25 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import survyvaller.admin.cmds.AdminCmd;
+import survyvaller.admin.cmds.RankCmd;
 import survyvaller.entities.EntityDisabler;
+import survyvaller.rank.WarmWelcome;
 import survyvaller.util.cmds.CmdBlocker;
 import survyvaller.util.cmds.PrivateChat;
 import survyvaller.util.item.compass.CompassListener;
+import survyvaller.util.resourcepack.ResourceEnabler;
 import survyvaller.util.sign.SignListener;
 
 public class Survyvaller extends JavaPlugin {
 
-	private Survyvaller INSTANCE;
-	public Survyvaller getInstance() {
+	private static Survyvaller INSTANCE;
+	public static Survyvaller getInstance() {
 		return INSTANCE;
 	}
 	
 	@Override 
 	public void onLoad() {
+		saveDefaultConfig();
 		INSTANCE = this;
 		//Do setup of classes.
 		try {
@@ -40,9 +44,12 @@ public class Survyvaller extends JavaPlugin {
 		pm.registerEvents(new CmdBlocker(), this);
 		pm.registerEvents(new SignListener(), this);
 		pm.registerEvents(new CompassListener(), this);
+		pm.registerEvents(new ResourceEnabler(), this);
+		pm.registerEvents(new WarmWelcome(), this);
 		getCommand("tell").setExecutor(new PrivateChat());
 		getCommand("reply").setExecutor(new PrivateChat());
 		getCommand("admin").setExecutor(new AdminCmd());
+		getCommand("rank").setExecutor(new RankCmd());
 	}
 	
 	@Override

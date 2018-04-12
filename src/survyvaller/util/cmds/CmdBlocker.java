@@ -23,6 +23,7 @@ public class CmdBlocker implements Listener {
 		disabledCommands.add("time");
 		disabledCommands.add("gamemode");
 		disabledCommands.add("enchant");
+		disabledCommands.add("kfood");
 	}
 	
 	@EventHandler

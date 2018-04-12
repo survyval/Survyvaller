@@ -20,6 +20,11 @@ commands:
     permission: survyvaller.default
     permission-message: You can't do that!
     aliases: [respond, r]
+  rank:
+    description: Show or alter player's rank.
+    usage: /<command> <player> <rank>
+    permission: survyvaller.admin
+    permission-message: You can't do that!
     
 permissions:
   survyvaller.default:
@@ -27,4 +32,4 @@ permissions:
     default: true
   survyvaller.admin:
     description: Gives access to survyvaller's admin commands & things.
-    default: op
+    default: true

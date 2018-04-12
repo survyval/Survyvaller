@@ -6,6 +6,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+/**
+ * Kind of a throw it all Misc bag of Player utilities :F
+ */
 public class PlayerUtils {
 	
 	/***

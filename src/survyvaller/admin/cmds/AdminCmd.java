@@ -12,6 +12,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import survyvaller.rank.RankUtils;
+
 public class AdminCmd implements CommandExecutor {
 	
 	private static Map<UUID, Location> adminsInAdminMode = new HashMap<>();
@@ -19,20 +21,24 @@ public class AdminCmd implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().toUpperCase().equals("ADMIN")) {
-			if (sender instanceof Player && sender.isOp()) {
+			if (sender instanceof Player) {
 				Player player = (Player) sender;
-				if (!adminsInAdminMode.containsKey(player.getUniqueId())) {
-					adminsInAdminMode.put(player.getUniqueId(), player.getLocation().clone());
-					player.setGameMode(GameMode.SPECTATOR);
-					player.sendMessage(ChatColor.BLUE + "Entered AdminMode!");
+				if (RankUtils.getRank(player.getUniqueId()).getLevel() > 5) {
+					if (!adminsInAdminMode.containsKey(player.getUniqueId())) {
+						adminsInAdminMode.put(player.getUniqueId(), player.getLocation().clone());
+						player.setGameMode(GameMode.SPECTATOR);
+						player.sendMessage(ChatColor.BLUE + "Entered AdminMode!");
+					} else {
+						player.teleport(adminsInAdminMode.get(player.getUniqueId()));
+						player.setGameMode(GameMode.SURVIVAL);
+						adminsInAdminMode.remove(player.getUniqueId());
+						player.sendMessage(ChatColor.BLUE + "Exited AdminMode!");
+					}
 				} else {
-					player.teleport(adminsInAdminMode.get(player.getUniqueId()));
-					player.setGameMode(GameMode.SURVIVAL);
-					adminsInAdminMode.remove(player.getUniqueId());
-					player.sendMessage(ChatColor.BLUE + "Exited AdminMode!");
+					sender.sendMessage(ChatColor.RED + "Only moderation ranks can enter adminmode!");
 				}
 			} else {
-				sender.sendMessage(ChatColor.RED + "Only admin players can enter adminmode!");
+				sender.sendMessage(ChatColor.RED + "Only players can enter adminmode!");
 			}
 			return true;
 		}
