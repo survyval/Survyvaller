@@ -1,5 +1,7 @@
 package survyvaller.rank;
 
+import java.util.List;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,10 +18,14 @@ public class WarmWelcome implements Listener {
 	@EventHandler
 	public void onAsyncLogin(AsyncPlayerPreLoginEvent event) {
 		if (ServerUtils.isServerFull()) {
-			Player unhappy = RandUtils.fromList(RankUtils.getSubs(event.getUniqueId()));
-			if (unhappy != null) {
-				unhappy.kickPlayer("You have been kicked to make space for a 'superior', Sorry for the limited server size :O");
-			}
+			RankUtils.getRank(event.getUniqueId()).getSubordinates().stream().forEach(subRank -> {
+				List<Player> victims = RankUtils.getRankedPlayers(subRank);
+				Player unhappy = RandUtils.fromList(victims);
+				if (unhappy != null) {
+					unhappy.kickPlayer("You have been kicked to make space for a 'superior', Sorry for the limited server size :O");
+					return;
+				}
+			});
 		}
 	}
 	

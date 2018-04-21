@@ -1,5 +1,6 @@
 package survyvaller.admin.cmds;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -30,13 +31,18 @@ public class RankCmd implements CommandExecutor {
 						return true;
 					}
 					case 2: {
-						if (senderRank.getLevel() > 4) {
+						if (senderRank.isSuperiorOf(Rank.SUBMOD)) {
 							Player target = PlayerUtils.getBestMatchingPlayer(args[0]);
 							if (target != null) {
 								Rank targetRank = Rank.fromString(args[1].toUpperCase());
-								if (targetRank.getLevel() < senderRank.getLevel()) {
-									RankUtils.setRank(target.getUniqueId(), targetRank);
-									sender.sendMessage(target.getDisplayName() + ChatColor.WHITE + " is now " + targetRank.getPrefix() + targetRank.toString() + ChatColor.WHITE + "!");
+								if (targetRank.isSubordinateOf(senderRank)) {
+									Rank targetCurrent = RankUtils.getRank(target.getUniqueId());
+									if (targetCurrent.isSuperiorOf(senderRank)) {
+										RankUtils.setRank(target.getUniqueId(), targetRank);
+										Bukkit.broadcastMessage(target.getDisplayName() + ChatColor.WHITE + " is now " + targetRank.getPrefix() + targetRank.toString() + ChatColor.WHITE + "!");
+									} else {
+										sender.sendMessage(ChatColor.RED + "Can't demote superiors you dufus!");
+									}
 								} else {
 									sender.sendMessage(ChatColor.RED + "Can't promote above or to your own rank you dufus!");
 								}
@@ -50,7 +56,7 @@ public class RankCmd implements CommandExecutor {
 					}
 					default: {
 						sender.sendMessage(ChatColor.YELLOW + "Usage: /rank PLAYER - Displays Rank of PLAYER.");
-						if (senderRank.getLevel() > 4) {
+						if (senderRank.isSuperiorOf(Rank.SUBMOD)) {
 							sender.sendMessage(ChatColor.YELLOW + "Usage: /rank PLAYER NEWRANK - sets Rank of PLAYER.");
 						}
 						return true;

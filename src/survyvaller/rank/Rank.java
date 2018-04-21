@@ -4,31 +4,23 @@ import java.util.EnumSet;
 import org.bukkit.ChatColor;
 
 public enum Rank {
-	ADMIN(ChatColor.GREEN, 7), 
-	MODERATOR(ChatColor.BLUE, 6), 
-	VIP(ChatColor.RED, 2), 
-	HELPER(ChatColor.YELLOW, 1), 
-	DEFAULT(ChatColor.WHITE, 0), 
-	OUTCAST(ChatColor.BLACK, -1);
-	
+
+	ADMIN(ChatColor.GREEN), 
+	MODERATOR(ChatColor.BLUE), 
+	SUBMOD(ChatColor.AQUA),
+	VIP(ChatColor.RED),
+	HELPER(ChatColor.YELLOW), 
+	DEFAULT(ChatColor.WHITE), 
+	OUTCAST(ChatColor.BLACK);
+
 	private final String prefix;
-	private final int level;
-	
-	private Rank(String prefix, int level) {
+
+	private Rank(String prefix) {
 		this.prefix = prefix;
-		this.level = level;
 	}
 	
-	private Rank(ChatColor prefix, int level) {
+	private Rank(ChatColor prefix) {
 		this.prefix = prefix.toString();
-		this.level = level;
-	}
-	
-	/**
-	 * @return the permission level of this rank.
-	 */
-	public int getLevel() {
-		return level;
 	}
 	
 	/**
@@ -50,6 +42,22 @@ public enum Rank {
 	 */
 	public EnumSet<Rank> getSuperiors() {
 		return EnumSet.of(Rank.ADMIN, this);
+	}
+	
+	/**
+	 * @param rank
+	 * @return true, if specified rank is superior.
+	 */
+	public boolean isSuperiorOf(Rank rank) {
+		return this.ordinal() < rank.ordinal();
+	}
+	
+	/**
+	 * @param rank
+	 * @return true, if specified rank is subordinate.
+	 */
+	public boolean isSubordinateOf(Rank rank) {
+		return this.ordinal() > rank.ordinal();
 	}
 	
 	/**

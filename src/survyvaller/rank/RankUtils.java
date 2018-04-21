@@ -3,7 +3,6 @@ package survyvaller.rank;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -21,7 +20,6 @@ public class RankUtils {
 	 * @return
 	 */
 	public static Rank getRank(UUID uuid) {
-		System.out.println(uuid.toString());
 		return Rank.fromString(Survyvaller.getInstance().getConfig().getConfigurationSection("players.ranks").get(uuid.toString()));
 	}
 	
@@ -31,10 +29,15 @@ public class RankUtils {
 	 * @param rank
 	 */
 	public static void setRank(UUID uuid, Rank rank) {
-		Survyvaller.getInstance().getConfig().getConfigurationSection("players.ranks").set(uuid.toString(), rank.toString());
+		if (rank != Rank.DEFAULT) {
+			Survyvaller.getInstance().getConfig().getConfigurationSection("players.ranks").set(uuid.toString(), rank.toString());
+		} else {
+			Survyvaller.getInstance().getConfig().getConfigurationSection("players.ranks").set(uuid.toString(), null);
+		}
 		Survyvaller.getInstance().saveConfig();
 		Player online = Bukkit.getPlayer(uuid);
 		if (online != null) {
+			Bukkit.getScoreboardManager().getMainScoreboard().getTeam(rank.toString()).addEntry(online.getName());
 			online.setDisplayName(rank.getPrefix() + online.getName() + ChatColor.RESET);
 		}
 	}
@@ -44,8 +47,8 @@ public class RankUtils {
 	 * @param ranks
 	 * @return set of those ranked players.
 	 */
-	public static Set<? extends Player> getRankedPlayers(Rank... ranks) {
-		return Bukkit.getOnlinePlayers().stream().filter(player -> Arrays.binarySearch(ranks, getRank(player.getUniqueId())) >= 0).collect(Collectors.toSet());
+	public static List<Player> getRankedPlayers(Rank... ranks) {
+		return Bukkit.getOnlinePlayers().stream().filter(player -> Arrays.binarySearch(ranks, getRank(player.getUniqueId())) >= 0).collect(Collectors.toList());
 	}
 	
 	/***
