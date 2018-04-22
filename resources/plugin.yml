@@ -25,10 +25,23 @@ commands:
     usage: /<command> <player> <rank>
     permission: survyvaller.admin
     permission-message: You can't do that!
+  report:
+    description: Reports a report.
+    usage: /<command> <report>
+    permission: survyvaller.helper
+    permission-message: You can't do that!
+  reports:
+    description: View or teleport to reports.
+    usage: /<command> (page / view) (reportnum)
+    permission: survyvaller.admin
+    permission-message: You can't do that!
     
 permissions:
   survyvaller.default:
     description: Gives access to survyvaller's default commands & things.
+    default: true
+  survyvaller.helper:
+    description: Gives access to survyvaller's helper commands & things.
     default: true
   survyvaller.admin:
     description: Gives access to survyvaller's admin commands & things.

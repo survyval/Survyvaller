@@ -8,7 +8,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import survyvaller.admin.cmds.AdminCmd;
 import survyvaller.admin.cmds.RankCmd;
+import survyvaller.admin.cmds.ReportsCmd;
 import survyvaller.entities.EntityDisabler;
+import survyvaller.helper.cmds.ReportCmd;
 import survyvaller.rank.WarmWelcome;
 import survyvaller.util.cmds.CmdBlocker;
 import survyvaller.util.cmds.PrivateChat;
@@ -51,6 +53,10 @@ public class Survyvaller extends JavaPlugin {
 		getCommand("reply").setExecutor(new PrivateChat());
 		getCommand("admin").setExecutor(new AdminCmd());
 		getCommand("rank").setExecutor(new RankCmd());
+		getCommand("report").setExecutor(new ReportCmd());
+		ReportsCmd reportscmd = new ReportsCmd(); 
+		getCommand("reports").setExecutor(reportscmd);
+		pm.registerEvents(reportscmd, this);
 	}
 	
 	@Override

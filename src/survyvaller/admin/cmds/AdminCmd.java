@@ -12,6 +12,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import survyvaller.rank.Rank;
 import survyvaller.rank.RankUtils;
 
 public class AdminCmd implements CommandExecutor {
@@ -23,7 +24,7 @@ public class AdminCmd implements CommandExecutor {
 		if (cmd.getName().toUpperCase().equals("ADMIN")) {
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
-				if (RankUtils.getRank(player.getUniqueId()).getLevel() > 5) {
+				if (RankUtils.getRank(player.getUniqueId()).isSuperiorOf(Rank.SUBMOD)) {
 					if (!adminsInAdminMode.containsKey(player.getUniqueId())) {
 						adminsInAdminMode.put(player.getUniqueId(), player.getLocation().clone());
 						player.setGameMode(GameMode.SPECTATOR);
@@ -43,6 +44,10 @@ public class AdminCmd implements CommandExecutor {
 			return true;
 		}
 		return false;
+	}
+
+	public static boolean isInAdminMode(UUID admin) {
+		return adminsInAdminMode.containsKey(admin);
 	}
 
 }
