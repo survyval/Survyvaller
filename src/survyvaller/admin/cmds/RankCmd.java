@@ -37,7 +37,7 @@ public class RankCmd implements CommandExecutor {
 								Rank targetRank = Rank.fromString(args[1].toUpperCase());
 								if (targetRank.isSubordinateOf(senderRank)) {
 									Rank targetCurrent = RankUtils.getRank(target.getUniqueId());
-									if (targetCurrent.isSuperiorOf(senderRank)) {
+									if (targetCurrent.isSubordinateOf(senderRank)) {
 										RankUtils.setRank(target.getUniqueId(), targetRank);
 										Bukkit.broadcastMessage(target.getDisplayName() + ChatColor.WHITE + " is now " + targetRank.getPrefix() + targetRank.toString() + ChatColor.WHITE + "!");
 									} else {

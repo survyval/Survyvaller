@@ -3,6 +3,7 @@ package survyvaller.helper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -15,7 +16,7 @@ public class Reports {
 	private static List<Report> reports = new ArrayList<>();
 
 	public static void report(Player player, String report) {
-		reports.add(new Report(player, report, reports.size()));
+		reports.add(new Report(player, report));
 	}
 
 	public static int size() {
@@ -25,12 +26,13 @@ public class Reports {
 	public static String[] getReports(int page) {
 		int pages = reports.size() / reportsPerPage;
 		int first = page * reportsPerPage, last = (page + 1) * reportsPerPage;
+		AtomicInteger count = new AtomicInteger(first);
 		if (page > pages) {
 			return new String[]{"Invalid Page!"};
 		} else if (page == pages) {
 			last = reports.size();
 		}
-		return reports.subList(first, last).stream().map(report -> report.getReport()).toArray(size -> new String[size]);
+		return reports.subList(first, last).stream().map(report -> "[" + count.getAndIncrement() + "] " + report.getReport()).toArray(size -> new String[size]);
 	}
 
 	public static Location getLocation(int report) {
@@ -51,8 +53,8 @@ public class Reports {
 		private UUID reporter;
 		private Location location;
 
-		public Report(Player reporter, String report, int num) {
-			this("[" + num + "] <" + reporter.getDisplayName() + ChatColor.RESET + "> " + report, reporter.getUniqueId(), reporter.getLocation());
+		public Report(Player reporter, String report) {
+			this("<" + reporter.getDisplayName() + ChatColor.RESET + "> " + report, reporter.getUniqueId(), reporter.getLocation());
 		}
 
 		public Report(String report, UUID reporter, Location location) {

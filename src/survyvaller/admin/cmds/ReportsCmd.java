@@ -34,12 +34,14 @@ public class ReportsCmd implements CommandExecutor, Listener {
 					sender.sendMessage(Reports.getReports(page));
 				} else {
 					if (AdminCmd.isInAdminMode(player.getUniqueId())) {
-						int report;
-						try {
-							report = Integer.parseInt(args[1]);
-						} catch (NumberFormatException e) {
-							sender.sendMessage(ChatColor.RED + args[1] + " is not a number!");
-							return true;
+						int report = 0;
+						if (args.length > 1) {
+							try {
+								report = Integer.parseInt(args[1]);
+							} catch (NumberFormatException e) {
+								sender.sendMessage(ChatColor.RED + args[1] + " is not a number!");
+								return true;
+							}
 						}
 						if (report < 0 || report >= Reports.size()) {
 							sender.sendMessage(ChatColor.RED + "Report " + report + " does not exist!");
