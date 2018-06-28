@@ -1,15 +1,12 @@
 package survyvaller.rank;
 
-import java.util.List;
-
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
 import net.md_5.bungee.api.ChatColor;
-import utils.RandUtils;
-import utils.ServerUtils;
+import survyvaller.utils.RandUtils;
+import survyvaller.utils.ServerUtils;
 
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
@@ -18,14 +15,10 @@ public class WarmWelcome implements Listener {
 	@EventHandler
 	public void onAsyncLogin(AsyncPlayerPreLoginEvent event) {
 		if (ServerUtils.isServerFull()) {
-			RankUtils.getRank(event.getUniqueId()).getSubordinates().stream().forEach(subRank -> {
-				List<Player> victims = RankUtils.getRankedPlayers(subRank);
-				Player unhappy = RandUtils.fromList(victims);
-				if (unhappy != null) {
-					unhappy.kickPlayer("You have been kicked to make space for a 'superior', Sorry for the limited server size :O");
-					return;
-				}
-			});
+			RankUtils.getRank(event.getUniqueId()).getSubordinates().stream()
+				.map(subRank -> RankUtils.getRankedPlayers(subRank)).filter(plebs -> !plebs.isEmpty())
+				.findFirst().ifPresent(plebs -> RandUtils.fromList(plebs)
+				.kickPlayer("You have been kicked to make space for a 'superior', Sorry for the limited server size :O"));
 		}
 	}
 	

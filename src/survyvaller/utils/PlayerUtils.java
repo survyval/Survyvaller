@@ -1,4 +1,4 @@
-package utils;
+package survyvaller.utils;
 
 import java.util.List;
 

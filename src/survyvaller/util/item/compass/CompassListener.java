@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import utils.PlayerUtils;
+import survyvaller.utils.PlayerUtils;
 
 public class CompassListener implements Listener {
 	

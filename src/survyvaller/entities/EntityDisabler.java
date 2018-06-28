@@ -25,7 +25,7 @@ public class EntityDisabler implements Listener {
 		if (
 			disabledEntities.contains(e.getEntityType()) || 
 			(
-				e.getEntityType() == EntityType.ZOMBIE &&
+				(e.getEntityType() == EntityType.ZOMBIE || e.getEntityType() == EntityType.PIG_ZOMBIE) &&
 				((Zombie) e.getEntity()).isBaby()
 			)
 		) {

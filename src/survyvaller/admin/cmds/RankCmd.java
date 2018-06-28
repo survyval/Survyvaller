@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 import survyvaller.rank.Rank;
 import survyvaller.rank.RankUtils;
-import utils.PlayerUtils;
+import survyvaller.utils.PlayerUtils;
 
 public class RankCmd implements CommandExecutor {
 
