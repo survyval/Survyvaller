@@ -6,8 +6,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
 import survyvaller.Survyvaller;
 
 public class ResourceEnabler implements Listener {
@@ -24,7 +22,7 @@ public class ResourceEnabler implements Listener {
 	@EventHandler
 	public void onLogin(PlayerLoginEvent event) {
 		Bukkit.getScheduler().runTaskLater(Survyvaller.getInstance(), () -> {
-			event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.YELLOW + "Hey, I'm applying the server resources, don't panic if your game freezes for a while :S"));
+			event.getPlayer().sendActionBar(ChatColor.YELLOW + "Hey, I'm applying the server resources, don't panic if your game freezes for a while :S");
 		}, 20l);
 		Bukkit.getScheduler().runTaskLater(Survyvaller.getInstance(), () -> {
 			event.getPlayer().setResourcePack(packId, packHash);

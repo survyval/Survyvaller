@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,9 +14,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
 import survyvaller.utils.PlayerUtils;
 
 public class CompassListener implements Listener {
@@ -33,8 +31,7 @@ public class CompassListener implements Listener {
 			)
 		) {
 			CompassMode mode = cycleMode(compass.get(event.getPlayer().getUniqueId()));
-			event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(
-					ChatColor.YELLOW + "Compass" + ChatColor.WHITE + " set to " + ChatColor.GREEN + mode.toString().toLowerCase() + ChatColor.WHITE + "."));
+			event.getPlayer().sendActionBar(ChatColor.YELLOW + "Compass" + ChatColor.WHITE + " set to " + ChatColor.GREEN + mode.toString().toLowerCase() + ChatColor.WHITE + ".");
 			handleMode(event.getPlayer(), mode);
 			compass.put(event.getPlayer().getUniqueId(), mode);
 		}

@@ -1,7 +1,8 @@
 name: Survyvaller
 author: 7kasper
-version: 0.1
+version: 0.2
 main: survyvaller.Survyvaller
+api-version: 1.13
 commands:
   admin:
     description: Toggles adminmode.
