@@ -10,14 +10,13 @@ import survyvaller.Survyvaller;
 
 public class ResourceEnabler implements Listener {
 	
-	public static final String packId = "https://github.com/survyval/SurvyvalPack/releases/download/0.0.3/SurvyvalPack.zip";
+	public static final String packId = "https://github.com/survyval/SurvyvalPack/releases/download/0.0.4/SurvyvalPack.zip";
 	public static final byte[] packHash = new byte[] {
-			(byte) 0x06, (byte) 0x35, (byte) 0xEB, (byte) 0xD4, (byte) 0xED, 
-			(byte) 0xC3, (byte) 0x99, (byte) 0x82, (byte) 0x86, (byte) 0xC8, 
-			(byte) 0xFA, (byte) 0x7B, (byte) 0x71, (byte) 0x66, (byte) 0x8C, 
-			(byte) 0x23, (byte) 0xDF, (byte) 0xA9, (byte) 0x5D, (byte) 0xC2
+			(byte) 0x92, (byte) 0x7C, (byte) 0xD7, (byte) 0x5B, (byte) 0xD1, 
+			(byte) 0xFA, (byte) 0x9B, (byte) 0x92, (byte) 0xE2, (byte) 0x96, 
+			(byte) 0xD0, (byte) 0x5C, (byte) 0xB5, (byte) 0x2E, (byte) 0xCE, 
+			(byte) 0xCC, (byte) 0xE0, (byte) 0x17, (byte) 0xD3, (byte) 0x2C
 	};
-	
 	//Apply resourcepack after login to prevent hickups on heavy load on slow internet connections with login handshake.
 	@EventHandler
 	public void onLogin(PlayerLoginEvent event) {
