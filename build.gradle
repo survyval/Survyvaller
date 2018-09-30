@@ -47,6 +47,10 @@ def dlDepsC = [
 	new Tuple(
 		'https://yivesmirror.com/files/paperspigot/PaperSpigot-1.13.1-b283.jar',
 		'spigot-1.13.1-1.jar'
+	),
+	new Tuple(
+		'https://github.com/7kasper/kFood/releases/download/0.7.7/kFood.jar',
+		'kFood-0.7.7.jar'
 	)
 ]
 
