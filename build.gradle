@@ -45,12 +45,12 @@ dlDepsDirS.mkdirs()
 
 def dlDepsC = [
 	new Tuple(
-		'https://yivesmirror.com/files/paperspigot/PaperSpigot-1.13.1-b283.jar',
-		'spigot-1.13.1-1.jar'
+		'https://yivesmirror.com/files/paper/Paper-1.13.2-b427.jar',
+		'spigot-1.13.2-1.jar'
 	),
 	new Tuple(
-		'https://github.com/7kasper/kFood/releases/download/0.7.7/kFood.jar',
-		'kFood-0.7.7.jar'
+		'https://github.com/7kasper/kFood/releases/download/0.7.9/kFood.jar',
+		'kFood-0.7.8.jar'
 	)
 ]
 
