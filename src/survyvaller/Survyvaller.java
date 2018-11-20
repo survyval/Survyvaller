@@ -12,6 +12,7 @@ import survyvaller.admin.cmds.ReportsCmd;
 import survyvaller.entities.EntityDisabler;
 import survyvaller.helper.cmds.ReportCmd;
 import survyvaller.rank.WarmWelcome;
+import survyvaller.recipe.CustomRecipes;
 import survyvaller.util.cmds.CmdBlocker;
 import survyvaller.util.cmds.PrivateChat;
 import survyvaller.util.item.compass.CompassListener;
@@ -57,6 +58,8 @@ public class Survyvaller extends JavaPlugin {
 		ReportsCmd reportscmd = new ReportsCmd(); 
 		getCommand("reports").setExecutor(reportscmd);
 		pm.registerEvents(reportscmd, this);
+		//Register custom recipes.
+		CustomRecipes.registerRecipes();
 	}
 	
 	@Override
